@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var vm = MainvViewVieModel()
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
+            List(vm.liveDatas?.result ?? [], id: \.id){data in
+                Text(data.title ?? "")
+            }.task {
+                await vm.getLiveData()
+            }
         }
+        
         .padding()
         }
     }

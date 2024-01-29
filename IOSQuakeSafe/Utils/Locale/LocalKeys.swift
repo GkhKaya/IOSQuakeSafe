@@ -8,7 +8,9 @@
 import Foundation
 import SwiftUI
 struct LocalKeys {
-    
+    enum MainvView : String{
+        case mainViewTitle = "mainViewTitle"
+    }
 }
 
 
