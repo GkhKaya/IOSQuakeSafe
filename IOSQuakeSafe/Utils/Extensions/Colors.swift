@@ -16,4 +16,10 @@ extension Color {
     public static var constellatio : Color{
         Color("constellation")
     }
+    public static var leads : Color{
+        Color("lead")
+    }
+    public static var old_silver : Color{
+        Color("old_silver")
+    }
 }

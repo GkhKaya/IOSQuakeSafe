@@ -11,6 +11,11 @@ struct LocalKeys {
     enum MainvView : String{
         case mainViewTitle = "mainViewTitle"
     }
+    enum DetailView : String{
+        case mag = "mag"
+        case depth = "depth"
+        case details = "details"
+    }
 }
 
 
