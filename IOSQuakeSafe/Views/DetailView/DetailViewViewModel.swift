@@ -7,9 +7,11 @@
 
 import Foundation
 import MapKit
+import _MapKit_SwiftUI
 
-final class DetailViewViewModel : ObservableObject{
-    @Published var quakeCoordinate = CLLocationCoordinate2D()
-    
-    
-}
+
+final class DetailViewViewModel : ObservableObject{    
+   
+        
+    }
+

@@ -5,7 +5,7 @@
 //  Created by Gokhan Kaya on 24.01.2024.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
+/// This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
 //   let quakeModel = try? JSONDecoder().decode(QuakeModel.self, from: jsonData)
@@ -41,7 +41,7 @@ struct Result: Codable {
     let mag, depth: Double?
     let geojson: Geojson?
     let locationProperties: LocationProperties?
-    let rev: JSONNull?
+    let rev: String?
     let dateTime: String?
     let createdAt: Int?
     let locationTz: LocationTz?
@@ -106,9 +106,9 @@ class JSONNull: Codable, Hashable {
         return true
     }
 
-    public var hashValue: Int {
-        return 0
-    }
+    func hash(into hasher: inout Hasher) {
+           hasher.combine(0)
+       }
 
     public init() {}
 

@@ -12,6 +12,8 @@ struct DetailCard: View {
     var titleText: String = "Depth"
     var desc : String?
     var value : String = "80KM"
+    var extraValue: String?
+
     
     var body: some View {
         VStack{
@@ -27,9 +29,18 @@ struct DetailCard: View {
                     
                 }.padding(.horizontal,ProjectPaddings.Horizontal.large.rawValue)
                 Spacer()
-                Text("\(value)")
-                    .modifier(BoldMediumTitle())
+                VStack {
+                    Text("\(value)")
+                        .modifier(BoldMediumTitle())
                     .padding(.horizontal,ProjectPaddings.Horizontal.large.rawValue)
+                    
+                    if let unwrappedExtraValue = extraValue {
+                        Text("\(unwrappedExtraValue)")
+                            .modifier(BoldMediumTitle())
+                        .padding(.horizontal,ProjectPaddings.Horizontal.large.rawValue)
+                    }
+                    
+                }
             }.padding(.vertical,ProjectPaddings.Vertical.normal.rawValue)
         }.background(Color.lead)
         

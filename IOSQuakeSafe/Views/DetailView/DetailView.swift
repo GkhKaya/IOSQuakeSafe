@@ -16,8 +16,8 @@ struct DetailView: View {
     var depth : Double = 5.6
     var center: String = "Konya"
     var centerCityCode: Int = 42
-    var centerLatitude : Double = 31.8327
-    var centerLongitude : Double = 38.4898
+    var centerLatitude : Double = 39.7892
+    var centerLongitude : Double = 39.5925
     
     
     var body: some View {
@@ -26,47 +26,16 @@ struct DetailView: View {
                 ScrollView {
                     VStack{
     //                    Header
-                        HStack {
-                            Spacer()
-                            ZStack {
-                                Rectangle()
-                                    .stroke(Color.lead, lineWidth: 14)
-                                .frame(width: geometry.dw(width: 0.6), height: geometry.dh(height: 0.3))
-                                
-                                VStack {
-                                   
-                                    
-                                    Text(String(format: "%.1f", mag))
-                                        .modifier(ExtraLargeTitle())
-                                        .padding(.bottom,ProjectPaddings.Bottom.extraSmall.rawValue)
-
-                                    Text("\(date)")
-                                        .modifier(MediumNormalTitle())
-                                    
-                                }
-                                
-                            }
-                            Spacer()
-                        }.padding(.vertical,ProjectPaddings.Vertical.large.rawValue)
+                        SquareSub(geometry: geometry, mag: mag, date: date)
                         
-                        NavigationLink(destination: MainView()){
+                        NavigationLink(destination: MapView(latitude: centerLatitude,longitude: centerLongitude)){
                             Text("Haritadaki Konumu")
                         }.padding(.bottom,ProjectPaddings.Bottom.large.rawValue)
                         
-                        Text("\(title)")
-                            .lineLimit(5)
-                            .multilineTextAlignment(.center)
-                            .modifier(BoldMediumTitle())
-                            .padding(.bottom,ProjectPaddings.Bottom.large.rawValue)
+                        DetailQuakeTitle(title: title)
                        
 //
-                        VStack {
-                            DetailCard(titleText: "Merkez",value: center)
-                            DetailCard(titleText: "Merkez Şehir Plaka kodu",value: String(centerCityCode))
-                            DetailCard(titleText: "Büyüklük",value: String(mag))
-                            DetailCard(titleText: "Derinlik", value: String(depth))
-                            
-                        }.padding(.horizontal,30)
+                        DetailDetailsSub(center: center, centerCityCode: centerCityCode, mag: mag, depth: depth,centerLatitude: centerLatitude,centerLongitude: centerLongitude)
                         
                         
                     }.navigationTitle(LocalKeys.DetailView.details.rawValue.locale()).navigationBarTitleDisplayMode(.inline).multilineTextAlignment(.center)
@@ -78,13 +47,66 @@ struct DetailView: View {
 }
 
 
-//extension CLLocationCoordinate2D{
-//    static var centerLocation : CLLocationCoordinate2D{
-//        return .init(latitude: , longitude: <#T##CLLocationDegrees#>)
-//    }
-//}
-
-
 #Preview {
     DetailView()
+}
+
+struct SquareSub: View {
+    var geometry : GeometryProxy
+    var mag : Double
+    var date : String
+    var body: some View {
+        HStack {
+            Spacer()
+            ZStack {
+                Rectangle()
+                    .stroke(Color.lead, lineWidth: 14)
+                    .frame(width: geometry.dw(width: 0.6), height: geometry.dh(height: 0.3))
+                
+                VStack {
+                    
+                    
+                    Text(String(format: "%.1f", mag))
+                        .modifier(ExtraLargeTitle())
+                        .padding(.bottom,ProjectPaddings.Bottom.extraSmall.rawValue)
+                    
+                    Text("\(date)")
+                        .modifier(MediumNormalTitle())
+                    
+                }
+                
+            }
+            Spacer()
+        }.padding(.vertical,ProjectPaddings.Vertical.large.rawValue)
+    }
+}
+
+struct DetailQuakeTitle: View {
+    var title : String
+    var body: some View {
+        Text("\(title)")
+            .lineLimit(5)
+            .multilineTextAlignment(.center)
+            .modifier(BoldMediumTitle())
+            .padding(.bottom,ProjectPaddings.Bottom.large.rawValue)
+    }
+}
+
+struct DetailDetailsSub: View {
+    var center: String
+    var centerCityCode : Int
+    var mag : Double
+    var depth: Double
+    var centerLatitude : Double
+    var centerLongitude : Double
+    var body: some View {
+        VStack {
+            DetailCard(titleText: "Merkez",value: center)
+            DetailCard(titleText: "Merkez Şehir Plaka kodu",value: String(centerCityCode))
+            DetailCard(titleText: "Büyüklük",value: String(mag))
+            DetailCard(titleText: "Derinlik", value: String(depth))
+            DetailCard(titleText: "Derinlik", value: String(centerLatitude),extraValue: String(centerLongitude))
+            
+        }.padding(.horizontal,30)
+    }
 }
