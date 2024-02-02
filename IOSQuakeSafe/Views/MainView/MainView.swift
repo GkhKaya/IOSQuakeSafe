@@ -29,9 +29,7 @@ struct MainView: View {
                     }
                 }.padding(.all,ProjectPaddings.All.normal.rawValue)
                 .navigationTitle(LocalKeys.MainvView.mainViewTitle.rawValue.locale()).navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        Image(systemName: "line.3.horizontal")
-                    }
+
                     
             }
         }.task {

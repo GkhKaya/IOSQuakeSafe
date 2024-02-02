@@ -16,8 +16,8 @@ struct DetailView: View {
     var depth : Double = 5.6
     var center: String = "Konya"
     var centerCityCode: Int = 42
-    var centerLatitude : Double = 39.7892
-    var centerLongitude : Double = 39.5925
+    var centerLatitude : Double = 28.9388
+    var centerLongitude : Double = 40.4382
     
     
     var body: some View {
@@ -26,11 +26,30 @@ struct DetailView: View {
                 ScrollView {
                     VStack{
     //                    Header
-                        SquareSub(geometry: geometry, mag: mag, date: date)
+                        Map(initialPosition: MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude), latitudinalMeters: 100000, longitudinalMeters: 100000))){
+                            Annotation("Merkez Nokta", coordinate: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude)) {
+                                ZStack {
+                                    Circle().frame(width: 30,height: 30)
+                                        .foregroundStyle(.blue.opacity(0.5))
+                                                         
+                                    Circle().frame(width: 20,height: 20).foregroundStyle(.white.opacity(0.6))
+                                        
+                                    Circle().frame(width: 10,height: 10)
+                                        .foregroundStyle(.blue.opacity(0.8))
+                                }
+                            }
+                                
+                        }.clipShape(RoundedRectangle(cornerRadius: ProjectRadius.normalRadius))
+                        .padding(.vertical,ProjectPaddings.Bottom.large.rawValue)
+                        .padding(.horizontal,10)
+                        .frame(width: geometry.dw(width: 1),height: geometry.dh(height: 0.4))
+                        .mapControls {
+                            MapCompass()
+                            MapPitchToggle()
+                            MapUserLocationButton()}
                         
-                        NavigationLink(destination: MapView(latitude: centerLatitude,longitude: centerLongitude)){
-                            Text("Haritadaki Konumu")
-                        }.padding(.bottom,ProjectPaddings.Bottom.large.rawValue)
+                        
+                        
                         
                         DetailQuakeTitle(title: title)
                        
@@ -105,7 +124,7 @@ struct DetailDetailsSub: View {
             DetailCard(titleText: "Merkez Şehir Plaka kodu",value: String(centerCityCode))
             DetailCard(titleText: "Büyüklük",value: String(mag))
             DetailCard(titleText: "Derinlik", value: String(depth))
-            DetailCard(titleText: "Derinlik", value: String(centerLatitude),extraValue: String(centerLongitude))
+            DetailCard(titleText: "Koordinatları", value: String(centerLatitude),extraValue: String(centerLongitude))
             
         }.padding(.horizontal,30)
     }

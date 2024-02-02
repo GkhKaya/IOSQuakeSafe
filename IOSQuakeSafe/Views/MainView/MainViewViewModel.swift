@@ -8,6 +8,8 @@
 import Foundation
 final class MainvViewVieModel : ObservableObject{
     @Published var liveDatas: QuakeModel?
+    @Published var goToWhistleView: Bool = false
+    
     
     
     func getLiveData() async{
